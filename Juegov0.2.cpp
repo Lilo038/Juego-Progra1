@@ -8,6 +8,7 @@ void direccion4(int tablero[5][7],int x,int y,int fpelota,int cpelota);//izquier
 void direccion5(int tablero[5][7],int x,int y,int fpelota,int cpelota);//abajo
 void direccion6(int tablero[5][7],int x,int y,int fpelota,int cpelota);//derecha abajo
 void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+//void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
 main(){
 	int tablero[5][7];
 	int fpelota,cpelota, y, x, ingreso;
@@ -15,20 +16,24 @@ main(){
 	cpelota=3;
 	
 	for (x=0;x<5;x++){
-		for (y=0;y<7;y++){        //da valores iniciales del tablero
-			if (x==0){
-				tablero[x][y]=1;
-			}else if (x==1){
-				tablero[x][y]=2;
-			}else{
-				tablero[x][y]=3;
-			}
-			if(x==fpelota and y==cpelota){
-				tablero[fpelota][cpelota]=0;
-			}
-		} 
-	}
-	void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+	for (y=0;y<7;y++){        //da valores iniciales del tablero
+		if (x==0){
+			tablero[x][y]=1;
+		}else if (x==1){
+			tablero[x][y]=2;
+		}else{
+			tablero[x][y]=0; //espacio vacio
+		}
+		if(x==fpelota and y==cpelota){
+			tablero[fpelota][cpelota]=9;
+		}
+	} 
+}
+	
+	
+	
+	
+	
 	do{
 		do{	
 			cout<<"Ingresa:"<<endl;
@@ -39,8 +44,8 @@ main(){
 		}while(ingreso>3 or ingreso<1);
 		switch (ingreso){
 			case 1: 
-				void direccion1(int tablero[5][7],int x,int y,int fpelota,int cpelota);//movimineto de la pelota izquierda arriba
-				void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+				direccion1(tablero,x,y,fpelota, cpelota);//movimineto de la pelota izquierda arriba
+				esctablero(tablero, x, y, fpelota, cpelota);//escribir tablero
 				if (cpelota==0){
 					ingreso=3;
 				}  
@@ -48,14 +53,14 @@ main(){
 					ingreso=4;
 				}
 			case 2:
-			    void direccion2(int tablero[5][7],int x,int y,int fpelota,int cpelota);//movimineto de la pelota recto
-				void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+			    direccion2( tablero, x, y, fpelota, cpelota);//movimineto de la pelota recto
+				esctablero( tablero, x, y, fpelota, cpelota);//escribir tablero
 				if (fpelota==0 or tablero[fpelota][cpelota]!=3){
 					ingreso=5;
 				}
 			case 3:
-				void direccion3(int tablero[5][7],int x,int y,int fpelota,int cpelota);//movimineto de la pelota derecha arriba
-				void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+				direccion3( tablero, x, y, fpelota, cpelota);//movimineto de la pelota derecha arriba
+				esctablero(tablero, x, y, fpelota, cpelota);//escribir tablero
 				if (cpelota==6){
 					ingreso=1;
 				}
@@ -63,17 +68,17 @@ main(){
 					ingreso=6;
 				}
 			case 4:
-				void direccion4(int tablero[5][7],int x,int y,int fpelota,int cpelota);//movimineto de la pelota izquierda abajo
-				void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+				direccion4( tablero, x, y, fpelota, cpelota);//movimineto de la pelota izquierda abajo
+				esctablero(tablero, x, y, fpelota, cpelota);//escribir tablero
 				if (cpelota==0){
 					ingreso=6;
 				} 
 			case 5:
-				void direccion5(int tablero[5][7],int x,int y,int fpelota,int cpelota);//movimineto de la pelota abajo
-				void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+				direccion5( tablero, x, y, fpelota, cpelota);//movimineto de la pelota abajo
+				esctablero( tablero, x, y, fpelota, cpelota);//escribir tablero
 			case 6:
-				void direccion6(int tablero[5][7],int x,int y,int fpelota,int cpelota);//movimineto de la pelota derecha abajo
-				void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota);//escribir tablero
+				direccion6( tablero, x, y, fpelota, cpelota);//movimineto de la pelota derecha abajo
+				esctablero(tablero, x, y, fpelota, cpelota);//escribir tablero
 				if (cpelota==6){
 					ingreso=4;
 				} 
@@ -148,19 +153,9 @@ void direccion6(int tablero[5][7],int x,int y,int fpelota,int cpelota){
 void esctablero(int tablero[5][7],int x,int y,int fpelota,int cpelota){
 	for (x=0;x<5;x++){
 			for (y=0;y<7;y++){
-				if (tablero[x][y]!=3){
 					cout<<tablero[x][y];       //escribir tablero
-				}
-				if (tablero[x][y]==3){
-					cout<<" ";
-				}
-				if (x==fpelota){
-					if (y==cpelota){
-						cout<<tablero[fpelota][cpelota];
-					}
-				}
-			//cout<<y;
+		
 			}
 		cout<<endl;
 	}              
-}
+} 
