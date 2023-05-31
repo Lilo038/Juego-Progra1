@@ -1,0 +1,210 @@
+#include<iostream>
+#include <string.h>
+using namespace std;
+
+void esctablero(int tablero[10][12], int x, int y, int fpelota, int cpelota);
+
+int main() {
+    int tablero[10][12];
+    int fpelota, cpelota, y, x, ingreso,unos;
+    bool game_over, anexo;
+    fpelota = 9;
+    cpelota = 5;
+  
+    game_over = false;
+    anexo=false;
+    
+    struct dataplayers{
+		char nickname;
+		int lanzadas;	
+	};
+	struct dataplayers jugador[2];
+	for(int l=0;l<2;l++){
+		cout<<"Ingrese nickname de jugador "<<endl;
+		cin>>jugador[l].nickname;
+	}
+	
+	for (int p = 0;p < 2;p++){
+		cout<<"Turno del jugador "<<p+1<<endl;
+		unos = 0;
+		fpelota = 9;
+   		cpelota = 5;
+		for (x = 0; x < 11; x++) {
+	        for (y = 0; y < 12; y++) {
+	            if (x == 0) {
+	                tablero[x][y] = 1;
+	            } else if(x== 1 && y%2!=0){
+	            	tablero[x][y] = 1;
+				}else if(x==2){
+					tablero[x][y] = 1;
+				}else if(x==3&& y%2!=0){
+					tablero[x][y] = 1; 
+				}else {
+	                tablero[x][y] = 0;  // espacio vacío
+				}
+	        }
+	        if (x == fpelota && y == cpelota) {
+	            tablero[fpelota][cpelota] = 9;
+	        }
+	    }
+	    do{
+	    	fpelota = 9;
+	    	cout<<"Ingrese direccion;"<<endl;
+	    	cout<<"1-Izquierda"<<endl;
+	    	cout<<"2-centro"<<endl;
+	    	cout<<"3-Derecha"<<endl;
+			cin>>ingreso;
+			
+			jugador[p].lanzadas=jugador[p].lanzadas+1;
+			
+	    	do{
+				switch(ingreso){
+					case 1://izquierda arriba
+					 	do{
+						 	
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (cpelota!=0){
+								tablero[fpelota][cpelota] = 0;
+								fpelota--;
+								cpelota--;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+							}
+							if (cpelota<=0 and fpelota<=0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=6;
+							} else if (cpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=3;
+							}else if (fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=4;
+							}
+							
+						}while(ingreso==1);
+						break;
+						
+					case 2://centro arriba 
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (fpelota!=0){
+								tablero[fpelota][cpelota] = 0;
+								fpelota--;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+							}
+							if (fpelota==0){
+								ingreso=5;
+								
+							}
+						}while(ingreso==2);
+						break;
+					case 3://derecha arriba
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (cpelota!=11){
+								tablero[fpelota][cpelota] = 0;
+								fpelota--;
+								cpelota++;
+							}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+							}
+							if (cpelota>=11 and fpelota<=0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=4;
+							}else if (fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=6;
+							}else if (cpelota==11){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=1;	
+							}
+						}while(ingreso==3);
+						break;
+					case 4:
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (fpelota!=11){
+								tablero[fpelota][cpelota] = 0;
+								fpelota++;
+								cpelota--;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+							}
+							if (cpelota==0 or fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=6;	
+							}
+							if(fpelota==9){
+							break;
+							}
+						}while(ingreso==4);
+						break;
+					case 5:
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (fpelota!=9){
+								tablero[fpelota][cpelota] = 0;
+								fpelota++;
+							}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+							}
+							if(fpelota==9){
+								break;
+							}
+						}while(ingreso==5);
+						break;
+					case 6:
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (cpelota!=11){
+								tablero[fpelota][cpelota] = 0;
+								fpelota++;
+								cpelota++;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+							}
+							if (cpelota==11 or fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=4;	
+							}
+							if(fpelota==9){
+								break;
+							}
+						}while(ingreso==6);
+						break;	
+				}
+			}while(fpelota!=9);
+		}while(unos<36);
+		cout<<"Game over";
+	}
+	if (jugador[0].lanzadas<jugador[1].lanzadas){
+		cout<<"El jugador 1: "<<jugador[0].nickname<<" es el ganador"<<endl;
+		cout<<"Con "<<jugador[0].lanzadas<<" lanzadas contra "<<jugador[1].lanzadas<<" del otro jugador."<<endl;
+	}else{
+		cout<<"El jugador 2: "<<jugador[1].nickname<<" es el ganador"<<endl;
+		cout<<"Con "<<jugador[1].lanzadas<<" lanzadas contra "<<jugador[0].lanzadas<<" del otro jugador."<<endl;	
+	}
+}
+void esctablero(int tablero[10][12], int x, int y, int fpelota, int cpelota) {
+    for (x = 0; x < 10; x++) {
+        for (y = 0; y < 12; y++) {
+            cout << tablero[x][y];  // escribir tablero
+        }
+        cout << endl;
+    }
+    system("pause");
+    system("cls");
+}
