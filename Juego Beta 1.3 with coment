@@ -1,0 +1,235 @@
+#include<iostream>
+#include <string>
+#include<windows.h>
+using namespace std;
+
+void esctablero(int tablero[10][12], int x, int y, int fpelota, int cpelota);
+
+    
+int main() {
+    int tablero[10][12];
+    int fpelota, cpelota, y, x, ingreso,unos,menu,cont;
+    fpelota = 9;
+    cpelota = 5;
+    menu=0;//variable del menu game over
+    cont=0;//varible de indic de estructura 
+	struct dataplayers{
+		char nickname[5];
+		int lanzadas;	          //Asignacion de estructura
+	};
+	struct dataplayers jugador[2];
+
+	for (x = 0; x < 11; x++) {
+	    for (y = 0; y < 12; y++) {     //Asignamos todo el tablero en 0
+	    	tablero[x][y]=0;
+	    }
+	}
+	    	
+
+	cout<<"Iniciando"<<endl;
+	do{	
+		jugador[cont].lanzadas=0;//Reinizamos el valor de lanzadas de la estructura
+		unos = 0;
+		fpelota = 9;
+   		cpelota = 5;
+		for (x = 0; x < 11; x++) {
+	        for (y = 0; y < 12; y++) {
+	            if (x == 0) {
+	                tablero[x][y] = 1;
+	            } else if(x== 1 && y%2!=0){
+	            	tablero[x][y] = 1;
+				}else if(x==2){                 //Asignamos valores a tablero
+					tablero[x][y] = 1;
+				}else if(x==3&& y%2!=0){
+					tablero[x][y] = 1;
+				}
+	        }
+	        if (x == fpelota && y == cpelota) {
+	            tablero[fpelota][cpelota] = 9;   //pelota
+	        }
+	    }
+	    do{
+	    	fpelota = 9;
+	    	cout<<"Ingrese direccion;"<<endl;
+	    	cout<<"1-Izquierda"<<endl;
+	    	cout<<"2-centro"<<endl;
+	    	cout<<"3-Derecha"<<endl;
+			cin>>ingreso;
+			
+			jugador[cont].lanzadas=jugador[cont].lanzadas+1;
+	    	do{
+				switch(ingreso){//ingreso indica la direccion de la pelota
+					case 1://izquierda arriba
+					 	do{					 	
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (cpelota!=0){
+								tablero[fpelota][cpelota] = 0;
+								fpelota--;
+								cpelota--;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;//suma para que se termine el juego
+								ingreso=4;
+							}
+							if (cpelota<=0 and fpelota<=0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=6;
+							} else if (cpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=3;
+							}else if (fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=4;
+							}
+						}while(ingreso==1);
+						break;
+	
+					case 2://centro arriba 
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (fpelota!=0){
+								tablero[fpelota][cpelota] = 0;
+								fpelota--;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+								ingreso=5;
+							}
+							if (fpelota==0){
+								ingreso=5;
+		
+							}
+						}while(ingreso==2);
+						break;
+					case 3://derecha arriba
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (cpelota!=11){
+								tablero[fpelota][cpelota] = 0;
+								fpelota--;
+								cpelota++;
+							}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+								ingreso=6;
+							}
+							if (cpelota>=11 and fpelota<=0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=4;
+							}else if (fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=6;
+							}else if (cpelota==11){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=1;	
+							}
+						}while(ingreso==3);
+						break;
+					case 4://izquierda abajo
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (fpelota!=11){
+								tablero[fpelota][cpelota] = 0;
+								fpelota++;
+								cpelota--;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+								ingreso=1;
+							}
+							if (cpelota==0 or fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=6;	
+							}
+							if(fpelota==9){
+							break;
+							}
+						}while(ingreso==4);
+						break;
+					case 5://abajo
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (fpelota!=9){
+								tablero[fpelota][cpelota] = 0;
+								fpelota++;
+							}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+								ingreso=2;
+							}
+							if(fpelota==9){
+								break;
+							}
+						}while(ingreso==5);
+						break;
+					case 6://derecha abajo
+						do{
+							tablero[fpelota][cpelota] = 9;
+							esctablero(tablero, x, y, fpelota, cpelota);
+							if (cpelota!=11){
+								tablero[fpelota][cpelota] = 0;
+								fpelota++;
+								cpelota++;
+								}
+							if(tablero[fpelota][cpelota]==1){
+								unos=unos+1;
+								ingreso=3;
+							}
+							if (cpelota==11 or fpelota==0){
+								tablero[fpelota][cpelota] = 0;
+								ingreso=4;	
+							}
+							if(fpelota==9){
+								break;
+							}
+						}while(ingreso==6);
+						break;	
+				}
+			}while(fpelota!=9);//cuando toca el suelo pregunta direccion
+		}while(unos<36);//Game over
+		cout<<"Game over"<<endl;
+		if(menu!=1){
+			cout<<"Ingresa tu nombre"<<endl;//ingresa el nombre del jugador
+			cin>>jugador[cont].nickname;
+		}
+		cout<<"     MENU"<<endl;
+		cout<<"1-Reintentar"<<endl;
+		cout<<"2-Siguiente jugador"<<endl;
+		cout<<"3-Salir"<<endl;
+		cin>>menu;
+		if (menu==2){
+			cont=cont+1;
+		}		
+	}while(menu!=3);
+	for (int x=0;x<2;x++){
+		if(jugador[x].lanzadas<=jugador[x+1].lanzadas){
+			cout<<"El jugador "<<jugador[x].nickname<<" es el campeon con "<<jugador[x].lanzadas<<" tiradas "<<endl;
+		}else{
+			cout<<"El jugador "<<jugador[x].nickname<<" es el ceboliita subcampeon con "<<jugador[x].lanzadas<<" tiradas "<<endl;
+		}
+	}
+	
+	
+	
+	
+}
+void esctablero(int tablero[10][12], int x, int y, int fpelota, int cpelota) {
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    for (x = 0; x < 10; x++) {
+        for (y = 0; y < 12; y++) {
+        	if(tablero[x][y]==tablero[fpelota][cpelota]){
+        		SetConsoleTextAttribute(handle, 0x005);
+			}
+            cout << tablero[x][y];  // escribir tablero
+            	SetConsoleTextAttribute(handle, 0x00F);
+        }
+        cout << endl;
+    }
+    system("pause");
+    system("cls");
+}
