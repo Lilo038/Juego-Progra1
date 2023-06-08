@@ -1,0 +1,73 @@
+#include<iostream>
+#include <string>
+#include<windows.h>
+using namespace std;
+
+
+struct reglimpieza{
+	char apellidolimpio[10];
+	int cant_veces;
+};
+
+struct hotel {
+	
+	char apellido[40];
+	char nombre[40];
+	int cant_dias;
+	char estadolimpieza [10];
+	reglimpieza limpieza;
+};
+struct hotel cliente[10];
+
+void cargaclient ();
+void cargalimp ();
+void imprimir ();
+int contarMalestado ();
+int main(){
+	for (int y=0;y<10;y++){
+		cout<<"Ingresa informacion del cliene "<<endl;
+		cargaclient ();
+	 	
+		cout<<"Ingresa Informacion del registro de limpieza "<<endl;
+		cargalimp ();
+	
+	}
+	imprimir ();
+}
+void cargaclient (){
+
+		cout<<"Ingrese Apellido "<<endl;
+		cin>>cliente[y].apellido;
+		cout<<"Ingrese Nombre "<<endl;
+		cin>>cliente[y].nombre;
+		cout<<"Cantidad de dias que se hospedo"<<endl;
+		cin>>cliente[y].cant_dias;
+		for (int x = 0; x<cliente[y].cant_dias;x++){
+			cout<<"Como fue la limpieza de esa habitacion"<<endl;
+			cout<<"B- Bien"<<endl;
+			cout<<"R- Regular"<<endl;
+			cout<<"M- Mal"<<endl;
+			cin>>cliente[y].estadolimpieza[x];
+		}	
+}
+void cargalimp (){
+	
+		cout<<"Ingrese Apellido "<<endl;
+		cin>>cliente[y].limpieza.apellidolimpio;
+		cout<<"Ingrese cantidad de veces que limpio "<<endl;
+		cin>>cliente[y].limpieza.cant_veces;
+	
+}
+void imprimir (){
+	for (int y=0;y<10;y++){
+		cout<<"El cliente: "<<cliente[y].apellido<<" "<<cliente[y].nombre<<endl;
+		cout<<"Cantidad de dias: "<<cliente[y].cant_dias<<endl;
+		for (int x = 0; x<cliente[y].cant_dias;x++){
+			cout<<"Estado del cuarto en el dia: "<<x<<" "<<cliente[y].estadolimpieza[x]<<endl;
+		}
+		cout<<"Registro de limpieza "<<cliente[y].limpieza.apellidolimpio<<" Limpio "<<cliente[y].limpieza.cant_veces<<" Veces "<<endl;
+	}
+}
+int contarMalestado (){
+	
+}
